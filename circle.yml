@@ -1,0 +1,30 @@
+machine:
+  environment:
+    MONGO: localhost:27017/mydb
+    REDIS: localhost
+  node:
+    version: 6.9.4 
+  python:
+#  services:
+#    - redis
+dependencies:
+  pre:
+    - echo $CRON
+    - sudo apt-get update
+    - sudo apt-get clean
+    - sudo apt-get install python-dev
+    - sudo pip install --upgrade setuptools
+    - sudo pip install --upgrade distribute
+    - sudo pip install --upgrade awsebcli
+    - npm rebuild node-sass 
+
+
+deployment:
+  development:
+    branch: dev
+    commands:
+      - chmod +x circledeploy.sh; ./circledeploy.sh default dev:
+          environment:
+            VAR1: value1
+            VAR2: value2
+            VAR3: value3
